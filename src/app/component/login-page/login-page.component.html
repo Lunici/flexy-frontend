@@ -1,0 +1,18 @@
+<ng-container  [formGroup]="formGroup">
+    <div>Username</div>
+    <input type="text" pInputText formControlName="username"/>
+
+    <div>Password</div>
+    <input type="text" pInputText formControlName="password"/>
+
+    <div>
+        <p-button size="small" label="Login" (onClick)="onLogin()"/>
+    </div>
+    <div>
+        <p-button size="small" label="test" (onClick)="onClickTest()"/>
+    </div>
+    <div>
+        <p-button label="change page" (onClick)="onClickChangePage()" />
+    </div>
+</ng-container>
+<router-outlet>test</router-outlet>
