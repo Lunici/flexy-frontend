@@ -3,12 +3,14 @@ import {RouterModule, Routes} from "@angular/router";
 import {LoginPageComponent} from "../component/login-page/login-page.component";
 import {NotFoundPageComponent} from "../component/not-found-page/not-found-page.component";
 import {HomePageComponent} from "../component/home-page/home-page.component";
-import {authGuard} from "../core/services/guard-service";
+import {generalPageGuard, loginPageGuard} from "../core/services/guard-service";
+import {SignupPageComponent} from "../component/signup-page/signup-page.component";
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
-    {path: 'home', component: HomePageComponent, canActivate: [authGuard]},
-    {path: 'login', component: LoginPageComponent},
+    {path: 'home', component: HomePageComponent, canActivate: [generalPageGuard]},
+    {path: 'login', component: LoginPageComponent, canActivate: [loginPageGuard]},
+    {path: 'signup', component: SignupPageComponent},
     {path: '**', component: NotFoundPageComponent}
 ];
 

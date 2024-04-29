@@ -1,0 +1,13 @@
+/*.p-button {*/
+/*    @apply bg-white*/
+/*}*/
+
+.text-button {
+    .p-button {
+        @apply bg-white;
+        @apply text-blue-600;
+        @apply h-0;
+        @apply text-sm;
+        @apply border-0
+    }
+}

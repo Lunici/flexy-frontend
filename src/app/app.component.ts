@@ -1,6 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 
 @Component({
@@ -10,13 +8,7 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
 
-
-    constructor(private router: Router) {
-    }
-
-    toPage() {
-        this.router.navigate(["/login"]);
-
+    constructor() {
     }
 
 }

@@ -1,0 +1,7 @@
+@import "./button.css";
+@import "./password.css";
+@import "./divider.css";
+
+.no-select {
+    user-select: none;
+}

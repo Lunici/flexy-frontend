@@ -1,10 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {PaginatorModule} from "primeng/paginator";
-import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Router, RouterModule, RouterOutlet} from "@angular/router";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {HttpStatusCode} from "@angular/common/http";
+import {Router, RouterOutlet} from "@angular/router";
+import {HttpResponse} from "../../core/models/response/http-response";
+import {EmptyView} from "../../core/models/response/views/empty-view";
+import {TokenService} from "../../core/services/token-service";
+import {Url} from "../../core/constants/url";
+import {PasswordModule} from "primeng/password";
+import {DividerModule} from "primeng/divider";
+import {FormPage} from "../../core/interfaces/form-page";
+import {AuthService} from "../../core/services/auth-service";
+import {MessageService} from "primeng/api";
+import {ToastModule} from "primeng/toast";
 
 @Component({
     selector: 'flexy-login-page',
@@ -14,87 +24,62 @@ import {Router, RouterModule, RouterOutlet} from "@angular/router";
         InputTextModule,
         PaginatorModule,
         ReactiveFormsModule,
-        RouterOutlet
+        RouterOutlet,
+        PasswordModule,
+        DividerModule,
+        ToastModule,
     ],
+    providers: [MessageService],
     templateUrl: './login-page.component.html',
 })
-export class LoginPageComponent implements OnInit {
-    private _formGroup: FormGroup | undefined;
+export class LoginPageComponent extends FormPage {
 
-    private _token: string = "";
-
-    constructor(private http: HttpClient, private router: Router) {
-    }
-
-    ngOnInit(): void {
-        this.initFormGroup();
-    }
-
-    get formGroup(): FormGroup {
-        return <FormGroup>this._formGroup;
-    }
-
-    get username(): string {
-        return this.formGroup.get('username')?.value;
+    get userid(): string {
+        return this.formGroup.get('userid')?.value;
     }
 
     get password(): string {
         return this.formGroup.get('password')?.value;
     }
 
-    get token(): string {
-        return this._token;
+    constructor(private authService: AuthService,
+                private tokenService: TokenService,
+                private router: Router,
+                private messageService: MessageService) {
+        super();
     }
 
-    set token(value: string) {
-        this._token = value;
-    }
-
-    set formGroup(value: FormGroup | undefined) {
-        this._formGroup = value;
-    }
-
-    private initFormGroup(): void {
-        this._formGroup = new FormGroup({
-            username: new FormControl<string | null>(null),
-            password: new FormControl<string | null>(null)
+    override initFormGroup(): FormGroup {
+        return new FormGroup({
+            userid: new FormControl<string | null>(null, Validators.required),
+            password: new FormControl<string | null>(null, Validators.required)
         });
     }
 
-    protected onLogin(): void {
-        console.log("Log in");
-        this.http.post("http://127.0.0.1:8080/login", {id: this.username, password: this.password})
-            .subscribe((response) => {
-                console.log(response);
-                let httpResponse: LoginHttpResponse = <LoginHttpResponse>response;
-                this.token = httpResponse.token;
-            })
+    protected onCLickLogin(): void {
+        if (this.formGroup.invalid) {
+            return;
+        }
+
+        this.messageService.clear();
+
+        this.disableForm();
+
+        this.authService.login({id: this.userid, password: this.password})
+            .subscribe((response: object): void => {
+                const httpResponse: HttpResponse<EmptyView> = <HttpResponse<EmptyView>>response;
+                if (httpResponse.status === HttpStatusCode.Ok) {
+                    this.tokenService.setToken(httpResponse.token);
+                    this.router.navigate([Url.home]);
+                } else if (httpResponse.status === HttpStatusCode.Unauthorized) {
+                    this.enableForm();
+                    this.messageService.add({severity: 'error', summary: "Sorry", detail: "The user ID or password is wrong.", sticky: true});
+                }
+            });
     }
 
-    protected onClickTest(): void {
-        console.log("test click!");
-        let headers: HttpHeaders = new HttpHeaders({userid: this.username, token: this.token});
-        // headers = headers.set("token", token);
-        var response = this.http.get("http://127.0.0.1:8080/test", {headers: headers});
-        response.subscribe(
-            response => {
-                console.log("C");
-            },
-            error => {
-                console.log("D");
-            }
-        )
+    protected goPageSignup(): void {
+        this.router.navigate([Url.signup]);
     }
 
-    protected onClickChangePage() {
-        this.router.navigate(['/login']);
-    }
-}
-
-class LoginHttpResponse {
-    token: string;
-
-    constructor(token: string) {
-        this.token = token;
-    }
 }

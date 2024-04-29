@@ -1,14 +1,20 @@
 import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot} from "@angular/router";
 import {inject} from "@angular/core";
 import {AuthService} from "./auth-service";
+import {Url} from "../constants/url";
 
-export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
+export const generalPageGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
     if (inject(AuthService).hasAuthenticated()) {
-        console.log("已经登录");
         return true;
     }
-
-    console.log("还没登陆");
-    inject(Router).navigate(["/login"]);
+    inject(Router).navigate([Url.login]);
     return false;
 };
+
+export const loginPageGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
+    if (!inject(AuthService).hasAuthenticated()) {
+        return true;
+    }
+    inject(Router).navigate([Url.home]);
+    return false;
+}

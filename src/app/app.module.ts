@@ -9,6 +9,8 @@ import {BrowserModule} from "@angular/platform-browser";
 import {AppRoutingModule} from "./modules/app-routing.module";
 import {LoginPageComponent} from "./component/login-page/login-page.component";
 import {NotFoundPageComponent} from "./component/not-found-page/not-found-page.component";
+import {ToastModule} from "primeng/toast";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
     declarations: [AppComponent],
@@ -21,7 +23,9 @@ import {NotFoundPageComponent} from "./component/not-found-page/not-found-page.c
         HttpClientModule,
         AppRoutingModule,
         LoginPageComponent,
-        NotFoundPageComponent
+        NotFoundPageComponent,
+        ToastModule,
+        BrowserAnimationsModule
     ],
     exports: [],
     bootstrap: [AppComponent]
