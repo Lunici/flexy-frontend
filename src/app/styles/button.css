@@ -11,3 +11,20 @@
         @apply border-0
     }
 }
+
+.toolbar-button {
+    .p-button {
+        @apply rounded-none;
+        @apply h-14;
+    }
+}
+
+.toolbar-buttongroup {
+    .p-buttongroup {
+        @apply border-r-0;
+    }
+}
+
+.p-button {
+    box-shadow: none !important;
+}

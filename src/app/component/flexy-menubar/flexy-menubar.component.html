@@ -1,0 +1,30 @@
+<!--<p-menubar [model]="items">-->
+<!--    <ng-template pTemplate="start" let-item let-root="root">-->
+<!--        <a pRipple class="flex align-items-center p-menuitem-link">-->
+<!--            <span [class]="item.icon"></span>-->
+<!--            <span class="ml-2">{{ item.label }}</span>-->
+<!--            <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>-->
+<!--            <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>-->
+<!--        </a>-->
+<!--    </ng-template>-->
+<!--    <ng-template pTemplate="item">-->
+<!--        B-->
+<!--    </ng-template>-->
+<!--    <ng-template pTemplate="end">-->
+<!--        C-->
+<!--    </ng-template>-->
+<!--</p-menubar>-->
+
+<p-toolbar>
+    <div class="p-toolbar-group-start">
+        <p-button class="toolbar-button" pRipple [text]="true" label="Explore" (onClick)="onClickExplore()"/>
+        <p-button class="toolbar-button" [text]="true" label="Something"/>
+    </div>
+    <div class="p-toolbar-group-center">
+
+    </div>
+    <div class="p-toolbar-group-end">
+        <p-menu #menu [model]="items" [popup]="true" />
+        <p-button class="toolbar-button" icon="pi pi-user" (click)="menu.toggle($event)"/>
+    </div>
+</p-toolbar>

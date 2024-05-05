@@ -3,7 +3,7 @@ import {inject} from "@angular/core";
 import {AuthService} from "./auth-service";
 import {Url} from "../constants/url";
 
-export const generalPageGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
+export const userPageGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
     if (inject(AuthService).hasAuthenticated()) {
         return true;
     }
@@ -11,7 +11,7 @@ export const generalPageGuard: CanActivateFn = (route: ActivatedRouteSnapshot, s
     return false;
 };
 
-export const loginPageGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
+export const loginOrSignupPageGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
     if (!inject(AuthService).hasAuthenticated()) {
         return true;
     }

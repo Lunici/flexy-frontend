@@ -1,14 +1,19 @@
-import {Component} from '@angular/core';
-import {Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {MessageService, PrimeNGConfig} from "primeng/api";
 
 @Component({
     selector: 'app-root',
-    templateUrl:    './app.component.html',
-    styleUrl: './app.component.css'
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css',
+    providers: [MessageService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
 
-    constructor() {
+    constructor(private primengConfig: PrimeNGConfig) {
+    }
+
+    ngOnInit(): void {
+        this.primengConfig.ripple = true;
     }
 
 }

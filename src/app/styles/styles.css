@@ -1,7 +1,12 @@
 @import "./button.css";
 @import "./password.css";
 @import "./divider.css";
+@import "./toolbar.css";
 
 .no-select {
     user-select: none;
+}
+
+.box-size-border-size {
+    box-sizing: border-box;
 }

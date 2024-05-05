@@ -1,29 +1,17 @@
 import {Component} from "@angular/core";
-import {ButtonModule} from "primeng/button";
-import {InputTextModule} from "primeng/inputtext";
-import {PasswordModule} from "primeng/password";
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {FormPage} from "../../core/interfaces/form-page";
-import {Router} from "@angular/router";
-import {Url} from "../../core/constants/url";
-import {AccountService} from "../../core/services/account-service";
-import {HttpResponse} from "../../core/models/response/http-response";
-import {EmptyView} from "../../core/models/response/views/empty-view";
-import {HttpStatusCode} from "@angular/common/http";
+import {FormPage} from "../../../core/interfaces/form-page";
+import {AccountService} from "../../../core/services/account-service";
 import {MessageService} from "primeng/api";
-import {ToastModule} from "primeng/toast";
+import {Router} from "@angular/router";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {MessageUtil} from "../../../core/utils/message-util";
+import {ErrorMessage} from "../../../core/constants/error-message";
+import {HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
+import {Url} from "../../../core/constants/url";
+
 
 @Component({
     selector: 'flexy-signup-page',
-    standalone: true,
-    imports: [
-        ButtonModule,
-        InputTextModule,
-        PasswordModule,
-        ReactiveFormsModule,
-        ToastModule
-    ],
-    providers: [MessageService],
     templateUrl: './signup-page.component.html'
 })
 export class SignupPageComponent extends FormPage {
@@ -65,7 +53,7 @@ export class SignupPageComponent extends FormPage {
         }
 
         if (this.repeatPasswordNotMatch()) {
-            this.messageService.add({severity: 'error', summary: 'Sorry', detail: 'The passwords are not matched', sticky: true});
+            this.messageService.add(MessageUtil.getStickyErrorMessage(ErrorMessage.PASSWORDS_NOT_MATCHED));
             return;
         }
 
@@ -74,14 +62,20 @@ export class SignupPageComponent extends FormPage {
         this.disableForm();
 
         this.accountService.signup({id: this.userid, name: this.username, password: this.password})
-            .subscribe((response: object): void => {
-                const httpResponse: HttpResponse<EmptyView> = <HttpResponse<EmptyView>>response;
-                if (httpResponse.status === HttpStatusCode.Conflict) {
-                    this.enableForm();
-                    this.messageService.add({severity: 'error', summary: 'Sorry', detail: 'The user ID already exists', sticky: true})
+            .subscribe({
+                next: (response: object): void => {
+                    this.goPageLogin();
+                },
+                error: (error: HttpErrorResponse): void => {
+                    if (error.status === HttpStatusCode.Conflict) {
+                        this.messageService.add(MessageUtil.getStickyErrorMessage(ErrorMessage.USER_ID_DUPLICATED));
+                        this.enableForm();
+                    }
+                    else {
+                        this.messageService.add(MessageUtil.getStickyUnknownErrorMessage());
+                    }
                 }
-                this.goPageLogin();
-            });
+            })
     }
 
     protected goPageLogin() {
