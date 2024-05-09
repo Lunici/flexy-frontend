@@ -1,4 +1,19 @@
 .p-toolbar {
     @apply p-0;
     @apply border-0;
+    @apply bg-white;
+    @apply rounded-none;
+    @apply border-b-2;
+    @apply border-b-gray-200;
+
+    p-button {
+        .p-button {
+            @apply text-black;
+            @apply border-t-blue-600;
+            @apply border-0;
+            @apply hover:border-b-4;
+            @apply hover:border-t-4;
+            @apply hover:bg-white;
+        }
+    }
 }

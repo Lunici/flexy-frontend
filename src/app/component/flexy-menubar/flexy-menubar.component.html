@@ -17,7 +17,8 @@
 
 <p-toolbar>
     <div class="p-toolbar-group-start">
-        <p-button class="toolbar-button" pRipple [text]="true" label="Explore" (onClick)="onClickExplore()"/>
+        <div class="w-8"></div>
+        <p-button class="toolbar-button" [text]="true" label="Explore" (onClick)="onClickExplore()"/>
         <p-button class="toolbar-button" [text]="true" label="Something"/>
     </div>
     <div class="p-toolbar-group-center">
@@ -25,6 +26,7 @@
     </div>
     <div class="p-toolbar-group-end">
         <p-menu #menu [model]="items" [popup]="true" />
-        <p-button class="toolbar-button" icon="pi pi-user" (click)="menu.toggle($event)"/>
+        <p-button class="toolbar-button" [text]="true" icon="pi pi-user" (click)="menu.toggle($event)"/>
+        <div class="w-8"></div>
     </div>
 </p-toolbar>
