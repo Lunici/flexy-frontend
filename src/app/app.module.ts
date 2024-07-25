@@ -11,13 +11,17 @@ import {ToastModule} from "primeng/toast";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FlexyMenubarComponent} from "./component/flexy-menubar/flexy-menubar.component";
 import {AuthenticationModule} from "./modules/authentication-module/authentication.module";
-import {ExploreComponent} from "./modules/explore-module/explore.component";
 import {ExploreModule} from "./modules/explore-module/explore.module";
 import {UserModule} from "./modules/user-module/user.module";
 import {RippleModule} from "primeng/ripple";
+import {UnknownErrorPage} from "./standalone/unknown-error-page/unknown-error-page";
+import {PostModule} from "./modules/post-module/post.module";
+import {Url} from "./core/constants/url";
 
 const routes: Routes = [
-    {path: '', redirectTo: 'explore', pathMatch: 'full'},
+    {path: '', redirectTo: Url.EXPLORE, pathMatch: 'full'},
+    {path: Url.ERROR, component: UnknownErrorPage, pathMatch: 'full'},
+    {path: Url.NOT_FOUND, component: NotFoundPageComponent, pathMatch: 'full'},
     {path: '**', component: NotFoundPageComponent}
 ];
 
@@ -42,6 +46,7 @@ const routes: Routes = [
         AuthenticationModule,
         ExploreModule,
         UserModule,
+        PostModule,
 
         // Flexy Components
         FlexyMenubarComponent

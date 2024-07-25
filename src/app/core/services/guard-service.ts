@@ -7,7 +7,7 @@ export const userPageGuard: CanActivateFn = (route: ActivatedRouteSnapshot, stat
     if (inject(AuthService).hasAuthenticated()) {
         return true;
     }
-    inject(Router).navigate([Url.login]);
+    inject(Router).navigate([Url.LOGIN]);
     return false;
 };
 
@@ -15,6 +15,6 @@ export const loginOrSignupPageGuard: CanActivateFn = (route: ActivatedRouteSnaps
     if (!inject(AuthService).hasAuthenticated()) {
         return true;
     }
-    inject(Router).navigate([Url.home]);
+    inject(Router).navigate([Url.HOME]);
     return false;
 }

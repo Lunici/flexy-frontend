@@ -8,10 +8,11 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {SignupPageComponent} from "./signup-page/signup-page.component";
 import {InputTextModule} from "primeng/inputtext";
 import {loginOrSignupPageGuard} from "../../core/services/guard-service";
+import {Url} from "../../core/constants/url";
 
 const routes: Routes = [
-    {path: 'login', component: LoginPageComponent, canActivate: [loginOrSignupPageGuard]},
-    {path: 'signup', component: SignupPageComponent, canActivate: [loginOrSignupPageGuard]},
+    {path: Url.LOGIN, component: LoginPageComponent, canActivate: [loginOrSignupPageGuard]},
+    {path: Url.SIGNUP, component: SignupPageComponent, canActivate: [loginOrSignupPageGuard]},
 ];
 
 @NgModule({

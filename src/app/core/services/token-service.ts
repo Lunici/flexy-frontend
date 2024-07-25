@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Auth} from "../constants/auth";
+import {HttpResponse} from "../models/response/http-response";
 
 @Injectable({providedIn: 'root'})
 export class TokenService {
@@ -13,5 +14,11 @@ export class TokenService {
 
     public removeToken(): void {
         localStorage.removeItem(Auth.TOKEN_KEY);
+    }
+
+    public refreshToken(response: HttpResponse<any>) {
+        if (response.token) {
+            this.setToken(response.token);
+        }
     }
 }

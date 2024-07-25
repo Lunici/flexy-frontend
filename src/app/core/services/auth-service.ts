@@ -1,10 +1,11 @@
 import {Injectable} from "@angular/core";
 import {Auth} from "../constants/auth";
-import {LoginRequestBody} from "../models/request-body/login-request-body";
 import {Observable} from "rxjs";
 import {Url} from "../constants/url";
 import {HttpClient} from "@angular/common/http";
 import {TokenService} from "./token-service";
+import {LoginRequestBody} from "../models/request-body/auth-request-body";
+import {ApiUrl} from "../constants/api-url";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -22,7 +23,7 @@ export class AuthService {
     }
 
     public login(requestBody: LoginRequestBody): Observable<Object> {
-        return this.http.post(Url.backendServer + Url.login, requestBody);
+        return this.http.post(ApiUrl.backendServer + Url.LOGIN, requestBody);
     }
 
     public logout(): void {

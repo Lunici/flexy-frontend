@@ -47,6 +47,11 @@ export class FlexyMenubarComponent implements OnInit {
                 command: () => this.onClickUser()
             },
             {
+                label: "Settings",
+                icon: "pi pi-fw pi-cog",
+                command: () => this.onClickSettings()
+            },
+            {
                 label: 'Log out',
                 icon: 'pi pi-fw pi-sign-out',
                 command: () => this.onClickLogout()
@@ -55,15 +60,19 @@ export class FlexyMenubarComponent implements OnInit {
     }
 
     onClickExplore(): void {
-        this.router.navigate([Url.explore]);
+        this.router.navigate([Url.EXPLORE]);
     }
 
     onClickUser(): void {
-        this.router.navigate([Url.profile]);
+        this.router.navigate([Url.PROFILE]);
     }
 
     onClickLogout(): void {
         this.authService.logout();
-        this.router.navigate([Url.login]);
+        this.router.navigate([Url.LOGIN]);
+    }
+
+    onClickSettings(): void {
+        this.router.navigate([Url.SETTINGS]);
     }
 }

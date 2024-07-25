@@ -1,4 +1,3 @@
-
 export class LoginRequestBody {
     id: string;
     password: string;

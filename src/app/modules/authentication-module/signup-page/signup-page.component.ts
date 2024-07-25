@@ -4,7 +4,7 @@ import {AccountService} from "../../../core/services/account-service";
 import {MessageService} from "primeng/api";
 import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {MessageUtil} from "../../../core/utils/message-util";
+import {MessageUtils} from "../../../core/utils/message-utils";
 import {ErrorMessage} from "../../../core/constants/error-message";
 import {HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
 import {Url} from "../../../core/constants/url";
@@ -53,7 +53,7 @@ export class SignupPageComponent extends FormPage {
         }
 
         if (this.repeatPasswordNotMatch()) {
-            this.messageService.add(MessageUtil.getStickyErrorMessage(ErrorMessage.PASSWORDS_NOT_MATCHED));
+            this.messageService.add(MessageUtils.getStickyErrorMessage(ErrorMessage.PASSWORDS_NOT_MATCHED));
             return;
         }
 
@@ -68,18 +68,18 @@ export class SignupPageComponent extends FormPage {
                 },
                 error: (error: HttpErrorResponse): void => {
                     if (error.status === HttpStatusCode.Conflict) {
-                        this.messageService.add(MessageUtil.getStickyErrorMessage(ErrorMessage.USER_ID_DUPLICATED));
+                        this.messageService.add(MessageUtils.getStickyErrorMessage(ErrorMessage.USER_ID_DUPLICATED));
                         this.enableForm();
                     }
                     else {
-                        this.messageService.add(MessageUtil.getStickyUnknownErrorMessage());
+                        this.messageService.add(MessageUtils.getStickyUnknownErrorMessage());
                     }
                 }
-            })
+            });
     }
 
     protected goPageLogin() {
-        this.router.navigate([Url.login]);
+        this.router.navigate([Url.LOGIN]);
     }
 
     protected repeatPasswordNotMatch(): boolean {

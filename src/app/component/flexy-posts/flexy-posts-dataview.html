@@ -1,0 +1,12 @@
+<div class="card">
+    <p-dataView [value]="posts" [rows]="10" [paginator]="true">
+        <ng-template pTemplate="list" let-posts>
+            <div class="grid">
+                <div class="grid-cols-12" *ngFor="let post of posts; let first = first">
+                    <p-divider *ngIf="!first"/>
+                    <flexy-post-item [post]="post"></flexy-post-item>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>
+</div>

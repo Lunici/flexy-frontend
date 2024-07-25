@@ -7,10 +7,10 @@ import {MessageService} from "primeng/api";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {EmptyView} from "../../../core/models/response/views/empty-view";
 import {Url} from "../../../core/constants/url";
-import {HttpResponse} from "../../../core/models/response/http-response";
 import {HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
-import {MessageUtil} from "../../../core/utils/message-util";
+import {MessageUtils} from "../../../core/utils/message-utils";
 import {ErrorMessage} from "../../../core/constants/error-message";
+import {HttpResponse} from "../../../core/models/response/http-response";
 
 @Component({
     selector: 'flexy-login-page',
@@ -54,13 +54,13 @@ export class LoginPageComponent extends FormPage {
                 next: (response: object): void => {
                     const httpResponse: HttpResponse<EmptyView> = <HttpResponse<EmptyView>>response;
                     this.tokenService.setToken(httpResponse.token);
-                    this.router.navigate([Url.home]);
+                    this.router.navigate([Url.HOME]);
                 },
                 error: (error: HttpErrorResponse): void => {
                     if (error.status === HttpStatusCode.Unauthorized) {
-                        this.messageService.add(MessageUtil.getStickyErrorMessage(ErrorMessage.USER_OR_PASSWORD_INCORRECT));
+                        this.messageService.add(MessageUtils.getStickyErrorMessage(ErrorMessage.USER_OR_PASSWORD_INCORRECT));
                     } else {
-                        this.messageService.add(MessageUtil.getStickyUnknownErrorMessage());
+                        this.messageService.add(MessageUtils.getStickyUnknownErrorMessage());
                     }
                     this.enableForm();
                 }
@@ -68,7 +68,7 @@ export class LoginPageComponent extends FormPage {
     }
 
     protected goPageSignup(): void {
-        this.router.navigate([Url.signup]);
+        this.router.navigate([Url.SIGNUP]);
     }
 
 }

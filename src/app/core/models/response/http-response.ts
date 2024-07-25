@@ -1,6 +1,5 @@
-import {View} from "./view";
 
-export class HttpResponse<VIEW extends View> {
+export class HttpResponse<VIEW> {
     status: number;
     message: string;
     token: string;
