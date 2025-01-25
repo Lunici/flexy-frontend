@@ -23,7 +23,8 @@ export class AuthService {
     }
 
     public login(requestBody: LoginRequestBody): Observable<Object> {
-        return this.http.post(ApiUrl.backendServer + Url.LOGIN, requestBody);
+        console.log(ApiUrl.backendServer + Url.LOGIN);
+        return this.http.post(ApiUrl.backendServer + Url.SEPARATOR + Url.LOGIN, requestBody);
     }
 
     public logout(): void {

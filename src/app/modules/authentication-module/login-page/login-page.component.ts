@@ -57,6 +57,7 @@ export class LoginPageComponent extends FormPage {
                     this.router.navigate([Url.HOME]);
                 },
                 error: (error: HttpErrorResponse): void => {
+                    console.log(error);
                     if (error.status === HttpStatusCode.Unauthorized) {
                         this.messageService.add(MessageUtils.getStickyErrorMessage(ErrorMessage.USER_OR_PASSWORD_INCORRECT));
                     } else {

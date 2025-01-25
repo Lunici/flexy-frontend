@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
                 this.profileId = params.get(UrlParams.PROFILE_ID)!;
             }
             this._initMyOwnBoolean();
-            this._initProfileId();
+            this._initProfileUser();
         });
     }
 
